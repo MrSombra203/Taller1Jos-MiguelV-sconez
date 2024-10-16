@@ -1,4 +1,12 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<EstadioContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EstadioContext") ?? throw new InvalidOperationException("Connection string 'EstadioContext' not found.")));
+builder.Services.AddDbContext<EquipoContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EquipoContext") ?? throw new InvalidOperationException("Connection string 'EquipoContext' not found.")));
+builder.Services.AddDbContext<JugadoresContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("JugadoresContext") ?? throw new InvalidOperationException("Connection string 'JugadoresContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
